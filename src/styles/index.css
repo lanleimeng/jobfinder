@@ -1,0 +1,175 @@
+/* =========================
+   1️⃣ Tailwind Directives
+========================= */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   2️⃣ Root Variables
+========================= */
+:root {
+  --font-size: 16px;
+
+  /* Colors */
+  --background: #F9FAFB;
+  --foreground: oklch(0.145 0 0);
+  --card: #ffffff;
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #2563EB;
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.0058 264.53);
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #14B8A6;
+  --accent-foreground: oklch(1 0 0);
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --ring: oklch(0.708 0 0);
+  --radius: 0.625rem;
+
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+}
+
+/* =========================
+   3️⃣ Dark Mode Variables
+========================= */
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+}
+
+/* =========================
+   4️⃣ Custom Utilities
+========================= */
+@layer utilities {
+
+  /* Backgrounds & Text */
+   .bg-background {
+    background-color: var(--background);
+  }
+  .text-foreground {
+    color: var(--foreground);
+  }
+  .bg-card {
+    background-color: var(--card);
+  }
+
+  .text-card-foreground {
+    color: var(--card-foreground);
+  }
+
+  .bg-popover {
+    background-color: var(--popover);
+  }
+
+  .text-popover-foreground {
+    color: var(--popover-foreground);
+  }
+
+  .bg-primary {
+    background-color: var(--primary);
+  }
+
+  .text-primary-foreground {
+    color: var(--primary-foreground);
+  }
+
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+
+  .text-secondary-foreground {
+    color: var(--secondary-foreground);
+  }
+
+  .bg-muted {
+    background-color: var(--muted);
+  }
+
+  .text-muted-foreground {
+    color: var(--muted-foreground);
+  }
+
+  .bg-accent {
+    background-color: var(--accent);
+  }
+
+  .text-accent-foreground {
+    color: var(--accent-foreground);
+  }
+
+  .bg-destructive {
+    background-color: var(--destructive);
+  }
+
+  .text-destructive-foreground {
+    color: var(--destructive-foreground);
+  }
+
+  /* Borders & Outline */
+  .border-border {
+    border-color: var(--border);
+  }
+
+  .outline-ring {
+    outline-color: var(--ring);
+  }
+
+  /* Radius */
+  .rounded-radius {
+    border-radius: var(--radius);
+  }
+}
+
+/* =========================
+   5️⃣ Base Styles (Global)
+========================= */
+@layer base {
+  * {
+    @apply border-border outline-ring;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-normal);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  label,
+  button,
+  input {
+    font-weight: var(--font-weight-normal);
+  }
+}
