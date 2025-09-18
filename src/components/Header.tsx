@@ -3,11 +3,12 @@ import { Button } from './ui/button';
 
 interface HeaderProps {
   isLoggedIn: boolean;
-  onAuthClick: () => void;
+  onLoginClick: () => void;   // <- renamed for clarity
+  onSignUpClick: () => void;  // <- new prop
   onLogout: () => void;
 }
 
-export function Header({ isLoggedIn, onAuthClick, onLogout }: HeaderProps) {
+export function Header({ isLoggedIn, onLoginClick, onSignUpClick, onLogout }: HeaderProps) {
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,10 +24,10 @@ export function Header({ isLoggedIn, onAuthClick, onLogout }: HeaderProps) {
               </Button>
             ) : (
               <>
-                <Button onClick={onAuthClick} variant="outline">
+                <Button onClick={onLoginClick} variant="outline">
                   Log In
                 </Button>
-                <Button onClick={onAuthClick} className="bg-primary hover:bg-primary/90">
+                <Button onClick={onSignUpClick} className="bg-primary hover:bg-primary/90">
                   Sign Up
                 </Button>
               </>
