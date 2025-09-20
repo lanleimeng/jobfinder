@@ -11,53 +11,8 @@ export function ResumeUpload({ onResumeUpload }: ResumeUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Mock resume parsing function
-  const parseResume = async (file: File): Promise<any> => {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Mock parsed resume data
-    return {
-      name: "John Doe",
-      email: "john.doe@email.com",
-      phone: "+1 (555) 123-4567",
-      location: "San Francisco, CA",
-      summary: "Experienced software developer with 5+ years of experience in full-stack development.",
-      skills: {
-        "JavaScript": 90,
-        "React": 85,
-        "Node.js": 80,
-        "Python": 75,
-        "SQL": 70,
-        "AWS": 65,
-        "TypeScript": 85,
-        "Git": 90
-      },
-      experience: [
-        {
-          title: "Senior Software Developer",
-          company: "Tech Corp",
-          duration: "2021 - Present",
-          description: "Led development of scalable web applications serving 100k+ users."
-        },
-        {
-          title: "Full Stack Developer",
-          company: "StartupXYZ",
-          duration: "2019 - 2021",
-          description: "Built and maintained multiple client projects using modern web technologies."
-        }
-      ],
-      education: [
-        {
-          degree: "Bachelor of Science in Computer Science",
-          school: "University of California",
-          year: "2019"
-        }
-      ]
-    };
-  };
-
-  const handleFileUpload = async (file: File) => {
+  
+ const handleFileUpload = async (file: File) => {
     if (!file || (!file.name.endsWith('.pdf') && !file.name.endsWith('.docx'))) {
       alert('Please upload a PDF or DOCX file.');
       return;
@@ -65,31 +20,46 @@ export function ResumeUpload({ onResumeUpload }: ResumeUploadProps) {
 
     setIsUploading(true);
     try {
-      const resumeData = await parseResume(file);
+      
+      const formData = new FormData();
+      formData.append('file', file);
+
+      
+      const res = await fetch('http://127.0.0.1:8000/process_resume', {
+  method: 'POST',
+  body: formData,
+});
+
+      
+      if (!res.ok) throw new Error(`Upload failed: ${res.statusText}`);
+
+      
+      const resumeData = await res.json();
+
+    
       onResumeUpload(resumeData);
     } catch (error) {
-      console.error('Error parsing resume:', error);
-      alert('Error parsing resume. Please try again.');
+      console.error('Error uploading resume:', error);
+      alert('Error uploading resume. Please try again.');
     } finally {
       setIsUploading(false);
     }
   };
+  
+const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  e.preventDefault();
+  setIsDragOver(false);
+  const file = e.dataTransfer.files?.[0];
+  if (file) handleFileUpload(file);
+};
 
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      handleFileUpload(file);
-    }
-  };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      handleFileUpload(file);
-    }
-  };
+const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (file) handleFileUpload(file);
+};
+
+
 
   return (
     <Card>
