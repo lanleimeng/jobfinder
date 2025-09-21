@@ -66,7 +66,7 @@ export function ResumePreview({ resumeData }: ResumePreviewProps) {
               <div>
                 <h3 className="font-semibold mb-3">Skills Identified</h3>
                 <div className="flex flex-wrap gap-2">
-                  {Object.entries(resumeData.skills || {}).map(([skill, level]) => (
+                  {Object.entries(resumeData.skills || {}).map(([skill]) => (
                     <Badge 
                       key={skill}
                       variant="secondary"
